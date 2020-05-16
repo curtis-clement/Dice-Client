@@ -10,9 +10,8 @@ Branches
 
 *Colour Scheme*
 
-#FCF7F8 - Snow
-#CED3DC - Lavender Gray
-#ABA9C3 - Wild Blue Yonder
-#505168 - Independence
-#30BCED - Cyan
-
+#022B3A - Gunmetal
+#1F7A8C - Metallic Seaweed
+#BFDBF7 - Beau Blue
+#6EFAFB - Electric Blue
+#A5FFD6 - Magic Mint

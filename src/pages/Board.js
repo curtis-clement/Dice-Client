@@ -11,6 +11,14 @@ export default function Board() {
   const [five, setFive] = useState(initialState);
   const [six, setSix] = useState(initialState);
 
+  const initailRollState = true
+  const [rollOne, setRollOne] = useState(initailRollState);
+  const [rollTwo, setRollTwo] = useState(initailRollState);
+  const [rollThree, setRollThree] = useState(initailRollState);
+  const [rollFour, setRollFour] = useState(initailRollState);
+  const [rollFive, setRollFive] = useState(initailRollState);
+  const [rollSix, setRollSix] = useState(initailRollState);
+
   const rollDice1 = () => {
     const diceValue = Math.ceil(Math.random() * 6);
     setOne({dice: diceValue})
@@ -45,9 +53,18 @@ export default function Board() {
       rollDice6();
   }
 
+  const allowRoll = (event) => {
+    setRollOne(event);
+  }
+
+  console.log('ROLL ONE', rollOne)
+
   return (
     <div>
-      <img src={require(`../images/${one.dice}.png`)} alt='Dice'/>
+      <img 
+      src={require(`../images/${one.dice}.png`)} alt='Dice'
+      onClick={() => {allowRoll(!rollOne)}}
+      />
       <img src={require(`../images/${two.dice}.png`)} alt='Dice'/>
       <img src={require(`../images/${three.dice}.png`)} alt='Dice'/>
       <img src={require(`../images/${four.dice}.png`)} alt='Dice'/>

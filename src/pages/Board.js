@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import {Link} from 'react-router-dom';
 
 import '../CSS/board.css';
 
@@ -117,6 +118,12 @@ export default function Board() {
       className={!rollSix ? 'dieclick' : null}
       />
       <button onClick={handleClick}>Roll</button>
+
+      <div>
+        <Link to={'/'}>
+          <h3>Back to the Rules</h3>
+        </Link>
+      </div>
     </div>
   )
 }

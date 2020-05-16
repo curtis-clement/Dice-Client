@@ -45,31 +45,71 @@ export default function Board() {
   };
 
   function handleClick() {
-      rollDice1();
-      rollDice2();
-      rollDice3();
-      rollDice4();
-      rollDice5();
-      rollDice6();
-  }
+      if (rollOne === true) {
+        rollDice1();
+      }
+      if (rollTwo === true) {
+        rollDice2();
+      }
+      if (rollThree === true) {
+        rollDice3();
+      }
+      if (rollFour === true) {
+        rollDice4();
+      }
+      if (rollFive === true) {
+        rollDice5();
+      }
+      if (rollSix === true) {
+        rollDice6();
+      }
+  };
 
-  const allowRoll = (event) => {
+  const allowRoll1 = (event) => {
     setRollOne(event);
   }
-
-  console.log('ROLL ONE', rollOne)
+  const allowRoll2 = (event) => {
+    setRollTwo(event);
+  }
+  const allowRoll3 = (event) => {
+    setRollThree(event);
+  }
+  const allowRoll4 = (event) => {
+    setRollFour(event);
+  }
+  const allowRoll5 = (event) => {
+    setRollFive(event);
+  }
+  const allowRoll6 = (event) => {
+    setRollSix(event);
+  }
 
   return (
     <div>
       <img 
       src={require(`../images/${one.dice}.png`)} alt='Dice'
-      onClick={() => {allowRoll(!rollOne)}}
+      onClick={() => {allowRoll1(!rollOne)}}
       />
-      <img src={require(`../images/${two.dice}.png`)} alt='Dice'/>
-      <img src={require(`../images/${three.dice}.png`)} alt='Dice'/>
-      <img src={require(`../images/${four.dice}.png`)} alt='Dice'/>
-      <img src={require(`../images/${five.dice}.png`)} alt='Dice'/>
-      <img src={require(`../images/${six.dice}.png`)} alt='Dice'/>
+      <img 
+      src={require(`../images/${two.dice}.png`)} alt='Dice'
+      onClick={() => {allowRoll2(!rollTwo)}}
+      />
+      <img 
+      src={require(`../images/${three.dice}.png`)} alt='Dice'
+      onClick={() => {allowRoll3(!rollThree)}}
+      />
+      <img 
+      src={require(`../images/${four.dice}.png`)} alt='Dice'
+      onClick={() => {allowRoll4(!rollFour)}}
+      />
+      <img 
+      src={require(`../images/${five.dice}.png`)} alt='Dice'
+      onClick={() => {allowRoll5(!rollFive)}}
+      />
+      <img 
+      src={require(`../images/${six.dice}.png`)} alt='Dice'
+      onClick={() => {allowRoll6(!rollSix)}}
+      />
       <button onClick={handleClick}>Roll</button>
     </div>
   )

@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom';
 
 export default function Rules() {
   return (
@@ -47,6 +48,10 @@ export default function Rules() {
           turn to try to beat that score and win the game.
         </p>
       </section>
+      <br />
+      <Link to={'/game'}>
+        <h3>Click here to play!</h3>
+      </Link>
     </div>
   )
 }

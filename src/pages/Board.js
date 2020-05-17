@@ -20,6 +20,8 @@ export default function Board() {
   const [rollFive, setRollFive] = useState(initailRollState);
   const [rollSix, setRollSix] = useState(initailRollState);
 
+  const [player, setPlayer] = useState('');
+
   const rollDice1 = () => {
     const diceValue = Math.ceil(Math.random() * 6);
     setOne({dice: diceValue})
@@ -85,6 +87,11 @@ export default function Board() {
     setRollSix(event);
   }
 
+  function createPlayer(event) {
+    event.preventDefault();
+    console.log('PLAYER ADDED', player)
+  }
+
   return (
     <main>
       <header>
@@ -97,7 +104,12 @@ export default function Board() {
         </Link>
       </div>
 
-      <section className='dice'>
+      <section className='board'>
+      <article className='players'>
+        <h4>Current Players</h4>
+      </article>
+
+      <article className='dice'>
       <img 
       src={require(`../images/${one.dice}.png`)} alt='Dice'
       onClick={() => {allowRoll1(!rollOne)}}
@@ -132,6 +144,23 @@ export default function Board() {
       className='roll'
       onClick={handleClick}>Roll
       </button>
+      </article>
+
+      <article className='add'>
+        <h4>Add A Player</h4>
+          <form onSubmit={createPlayer}>
+            <label>Player Name</label>
+            <br/>
+              <input 
+              type='text'
+              placeholder='Player Name'
+              onChange={event => setPlayer(event.target.value)}
+              />
+            <button type='submit'>
+              Add
+            </button>
+          </form>
+      </article>
       </section>
     </main>
   )

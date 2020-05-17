@@ -86,44 +86,53 @@ export default function Board() {
   }
 
   return (
-    <div>
-      <img 
-      src={require(`../images/${one.dice}.png`)} alt='Dice'
-      onClick={() => {allowRoll1(!rollOne)}}
-      className={!rollOne ? 'dieclick' : null}
-      />
-      <img 
-      src={require(`../images/${two.dice}.png`)} alt='Dice'
-      onClick={() => {allowRoll2(!rollTwo)}}
-      className={!rollTwo ? 'dieclick' : null}
-      />
-      <img 
-      src={require(`../images/${three.dice}.png`)} alt='Dice'
-      onClick={() => {allowRoll3(!rollThree)}}
-      className={!rollThree ? 'dieclick' : null}
-      />
-      <img 
-      src={require(`../images/${four.dice}.png`)} alt='Dice'
-      onClick={() => {allowRoll4(!rollFour)}}
-      className={!rollFour ? 'dieclick' : null}
-      />
-      <img 
-      src={require(`../images/${five.dice}.png`)} alt='Dice'
-      onClick={() => {allowRoll5(!rollFive)}}
-      className={!rollFive ? 'dieclick' : null}
-      />
-      <img 
-      src={require(`../images/${six.dice}.png`)} alt='Dice'
-      onClick={() => {allowRoll6(!rollSix)}}
-      className={!rollSix ? 'dieclick' : null}
-      />
-      <button onClick={handleClick}>Roll</button>
+    <main>
+      <header>
+        <h2>Dice - 5000</h2>
+      </header>
 
       <div>
         <Link to={'/'}>
           <h3>Back to the Rules</h3>
         </Link>
       </div>
-    </div>
+
+      <section className='dice'>
+      <img 
+      src={require(`../images/${one.dice}.png`)} alt='Dice'
+      onClick={() => {allowRoll1(!rollOne)}}
+      className={!rollOne ? 'dieclick' : 'die'}
+      />
+      <img 
+      src={require(`../images/${two.dice}.png`)} alt='Dice'
+      onClick={() => {allowRoll2(!rollTwo)}}
+      className={!rollTwo ? 'dieclick' : 'die'}
+      />
+      <img 
+      src={require(`../images/${three.dice}.png`)} alt='Dice'
+      onClick={() => {allowRoll3(!rollThree)}}
+      className={!rollThree ? 'dieclick' : 'die'}
+      />
+      <img 
+      src={require(`../images/${four.dice}.png`)} alt='Dice'
+      onClick={() => {allowRoll4(!rollFour)}}
+      className={!rollFour ? 'dieclick' : 'die'}
+      />
+      <img 
+      src={require(`../images/${five.dice}.png`)} alt='Dice'
+      onClick={() => {allowRoll5(!rollFive)}}
+      className={!rollFive ? 'dieclick' : 'die'}
+      />
+      <img 
+      src={require(`../images/${six.dice}.png`)} alt='Dice'
+      onClick={() => {allowRoll6(!rollSix)}}
+      className={!rollSix ? 'dieclick' : 'die'}
+      />
+      <button
+      className='roll'
+      onClick={handleClick}>Roll
+      </button>
+      </section>
+    </main>
   )
 }

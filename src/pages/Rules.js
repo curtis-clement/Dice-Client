@@ -1,14 +1,17 @@
 import React from 'react'
 import {Link} from 'react-router-dom';
 
+import '../CSS/rules.css';
+
 export default function Rules() {
   return (
     <div>
       <header>
         <h1>Rules</h1>
+        <hr className='line'/> 
       </header>
 
-      <section>
+      <section className='rulebox'>
         <h3>5000 - A game for any number of players using six dice</h3>
 
         <p>The object of the game is to accumulate a total of 5000 points. The dice score as follows:</p>

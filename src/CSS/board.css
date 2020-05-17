@@ -1,3 +1,32 @@
+h2 {
+  font-family: 'Indie Flower', cursive;
+  font-size: 70px;
+  padding: 0%;
+  margin: 1%;
+}
+
+.dice {
+  width: 20%;
+  margin: auto;
+  background-color: white;
+  border-radius: 10px;
+  padding: 1%
+}
+
+.die {
+  width: 46%;
+  margin: 2%;
+}
+
 .dieclick {
   opacity: 50%;
+  width: 46%;
+  margin: 2%;
+}
+
+.roll {
+  font-size: 25px;  
+  background-color: #022B3A;
+  border-radius: 5px;
+  color: #6EFAFB
 }

@@ -95,10 +95,10 @@ export default function Board() {
   // const playerId = Math.floor(Math.random() * 1000000)
 
   let allPlayers = useSelector(selectAllPlayers);
-  console.log('ALL PLAYERS', allPlayers.player)
+  console.log('ALL PLAYERS', allPlayers.players)
 
   function createPlayer(event) {
-    const playerId = allPlayers.player.length + 1
+    const playerId = allPlayers.players.length + 1
       event.preventDefault();
       console.log('PLAYER ADDED', player, playerId)
       dispatch(addPlayer(
@@ -122,6 +122,11 @@ export default function Board() {
       <section className='board'>
       <article className='players'>
         <h4>Current Players</h4>
+        {allPlayers.players.map(player => {
+          return (
+            <p>{player}</p>
+          )
+        })}
       </article>
 
       <article className='dice'>

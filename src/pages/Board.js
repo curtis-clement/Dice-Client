@@ -92,16 +92,13 @@ export default function Board() {
     setRollSix(event);
   }
 
-  const playerId = Math.floor(Math.random() * 1000000)
+  // const playerId = Math.floor(Math.random() * 1000000)
 
   let allPlayers = useSelector(selectAllPlayers);
-  console.log('ALL PLAYERS', allPlayers)
+  console.log('ALL PLAYERS', allPlayers.player)
 
   function createPlayer(event) {
-    // if (!allPlayers) {
-    //   allPlayers = [];
-    // }
-    // const playerId = allPlayers.length + 1
+    const playerId = allPlayers.player.length + 1
       event.preventDefault();
       console.log('PLAYER ADDED', player, playerId)
       dispatch(addPlayer(

@@ -1,5 +1,8 @@
 import React, {useState} from 'react'
 import {Link} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {addPlayer} from '../store/actions/playeraction';
+import {selectAllPlayers} from '../store/selectors/playerselector';
 
 import '../CSS/board.css';
 
@@ -21,6 +24,8 @@ export default function Board() {
   const [rollSix, setRollSix] = useState(initailRollState);
 
   const [player, setPlayer] = useState('');
+
+  const dispatch = useDispatch();
 
   const rollDice1 = () => {
     const diceValue = Math.ceil(Math.random() * 6);
@@ -87,9 +92,22 @@ export default function Board() {
     setRollSix(event);
   }
 
+  const playerId = Math.floor(Math.random() * 1000000)
+
+  let allPlayers = useSelector(selectAllPlayers);
+  console.log('ALL PLAYERS', allPlayers)
+
   function createPlayer(event) {
-    event.preventDefault();
-    console.log('PLAYER ADDED', player)
+    // if (!allPlayers) {
+    //   allPlayers = [];
+    // }
+    // const playerId = allPlayers.length + 1
+      event.preventDefault();
+      console.log('PLAYER ADDED', player, playerId)
+      dispatch(addPlayer(
+        player,
+      ));
+      setPlayer('');
   }
 
   return (
@@ -154,6 +172,7 @@ export default function Board() {
               <input 
               type='text'
               placeholder='Player Name'
+              value={player}
               onChange={event => setPlayer(event.target.value)}
               />
             <button type='submit'>

@@ -16,11 +16,11 @@ export default function Rules() {
 
         <p>The object of the game is to accumulate a total of 5000 points. The dice score as follows:</p>
         <p>PUT A TABLE OF THE SCORES HERE</p>
-        <p>A straight in the first role (1 to 6) scores 1500 points</p>
+        <p>A straight in the first roll (1 to 6) scores 1500 points</p>
         <p>3 pairs in the first role score 500 points</p>
         <p>6 of a kind = instant win - 5000 points</p>
         <p>
-          To play: The first player throws all 6 dice. Any dice which score are set to one side, and the remaining dice
+          To play: The first player throws all 6 dice. Any dice which score are set to one side and the remaining dice
           can be thrown again. Scoring dice are again put to one side. This can be repeated as many times as necessary.
         </p>
         <p>

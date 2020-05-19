@@ -125,7 +125,7 @@ export default function Board() {
         <h4>Current Players</h4>
         {allPlayers.players.map(player => {
           return (
-            <p>{player.name}</p>
+            <p>{player.name} - {player.score}</p>
           )
         })}
       </article>

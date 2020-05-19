@@ -12,7 +12,8 @@ export const addPlayer = (name, id) => {
   return (dispatch, getState) => {
     const player = {
       name: name,
-      id: id
+      id: id,
+      score: 0
     }
 
     dispatch(addNewPlayer(player))

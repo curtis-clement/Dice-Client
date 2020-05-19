@@ -1,15 +1,21 @@
 export const ADD_NEW_PLAYER = 'ADD_NEW_PLAYER';
 
-function addNewPlayer(data) {
+function addNewPlayer(player) {
+  console.log('NEW PLAYER', player)
   return {
     type: 'ADD_NEW_PLAYER',
-    payload: data
+    payload: player
   }
 };
 
 export const addPlayer = (name, id) => {
   return (dispatch, getState) => {
-    dispatch(addNewPlayer(name))
-    console.log('ADD PLAYER ACTION', name)
+    const player = {
+      name: name,
+      id: id
+    }
+
+    dispatch(addNewPlayer(player))
+    console.log('ADD PLAYER ACTION', name, id)
   }
 }

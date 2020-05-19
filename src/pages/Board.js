@@ -103,6 +103,7 @@ export default function Board() {
       console.log('PLAYER ADDED', player, playerId)
       dispatch(addPlayer(
         player,
+        playerId
       ));
       setPlayer('');
   }
@@ -124,7 +125,7 @@ export default function Board() {
         <h4>Current Players</h4>
         {allPlayers.players.map(player => {
           return (
-            <p>{player}</p>
+            <p>{player.name}</p>
           )
         })}
       </article>

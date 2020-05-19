@@ -94,7 +94,7 @@ export default function Board() {
 
   // const playerId = Math.floor(Math.random() * 1000000)
 
-  let allPlayers = useSelector(selectAllPlayers);
+  const allPlayers = useSelector(selectAllPlayers);
   console.log('ALL PLAYERS', allPlayers.players)
 
   function createPlayer(event) {
@@ -200,6 +200,20 @@ export default function Board() {
               Add
             </button>
           </form>
+
+          <div>
+            <select>
+              {allPlayers.players.map(player => {
+                return (
+                <option
+                key={player.id}
+                value={player.id}
+                >
+                  {player.name}
+                </option>
+              )})}
+            </select>
+          </div>
       </article>
       </section>
     </main>

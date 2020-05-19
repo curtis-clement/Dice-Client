@@ -24,6 +24,7 @@ export default function Board() {
   const [rollSix, setRollSix] = useState(initailRollState);
 
   const [player, setPlayer] = useState('');
+  const [score, setScore] = useState();
 
   const dispatch = useDispatch();
 
@@ -106,6 +107,14 @@ export default function Board() {
         playerId
       ));
       setPlayer('');
+  }
+
+  function updateScore(event) {
+    event.preventDefault();
+    console.log('PLAYER ID AND SCORE', player, score)
+    // dispatch()
+    setScore([]);
+    setPlayer('');
   }
 
   return (
@@ -201,21 +210,35 @@ export default function Board() {
             </button>
           </form>
 
-          <div>
-            <select>
+          <form onSubmit={updateScore}>
               {allPlayers.players.map(player => {
                 return (
-                <option
-                key={player.id}
-                value={player.id}
-                >
+                  <div>
                   {player.name}
-                </option>
+                  <input 
+                  type='number'
+                  value={score}
+                  onChange={event => {setScore(event.target.value)}}
+                  />
+                  <button 
+                  type='submit'
+                  onClick={() => {
+                    setPlayer(player.id)
+                  }
+                  }
+                  >+</button>
+                  </div>
               )})}
-            </select>
-          </div>
+          </form>
       </article>
       </section>
     </main>
   )
 }
+
+
+// onSubmit={event => {
+//   event.preventDefault();
+//   setPlayer(player.id)
+//   setScore(event.target.value)
+// }}

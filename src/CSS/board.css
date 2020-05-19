@@ -6,7 +6,7 @@ h2 {
 }
 
 h4 {
-  font-size: 25px;
+  font-size: 35px;
   text-decoration: underline;
 }
 
@@ -14,9 +14,38 @@ h4 {
   display: flex;
 }
 
+.headers {
+  display: flex;
+  text-align: left;
+  text-decoration: underline;
+  font-size: 25px;
+}
+
+.subtitle {
+  width: 50%;
+}
+
 .players {
   width: 30%;
   margin-left: 4%;
+}
+
+.playerboard {
+  display: flex;
+  text-align: left;
+  font-size: 20px;
+}
+
+.playername {
+  width: 50%;
+  height: 25px;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  padding-bottom: 0;
+}
+
+.playerscore {
+  margin: 0%;
 }
 
 .dice {

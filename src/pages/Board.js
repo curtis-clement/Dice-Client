@@ -123,9 +123,27 @@ export default function Board() {
       <section className='board'>
       <article className='players'>
         <h4>Current Players</h4>
+
+          <div className='headers'>
+          <div className='subtitle'>
+            <h5>Player</h5>
+          </div>
+          <div className='subtitle'>
+            <h5>Score</h5>
+          </div>
+          </div>
+
         {allPlayers.players.map(player => {
           return (
-            <p>{player.name} - {player.score}</p>
+            <div className='playerboard'>
+              <div className='playername'>
+                {player.name}
+              </div>
+
+              <div className='playername'>
+                {player.score}
+              </div>
+            </div>
           )
         })}
       </article>

@@ -1,5 +1,8 @@
 import React, {useState} from 'react'
 import {Link} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {addPlayer} from '../store/actions/playeraction';
+import {selectAllPlayers} from '../store/selectors/playerselector';
 
 import '../CSS/board.css';
 
@@ -19,6 +22,10 @@ export default function Board() {
   const [rollFour, setRollFour] = useState(initailRollState);
   const [rollFive, setRollFive] = useState(initailRollState);
   const [rollSix, setRollSix] = useState(initailRollState);
+
+  const [player, setPlayer] = useState('');
+
+  const dispatch = useDispatch();
 
   const rollDice1 = () => {
     const diceValue = Math.ceil(Math.random() * 6);
@@ -85,6 +92,21 @@ export default function Board() {
     setRollSix(event);
   }
 
+  // const playerId = Math.floor(Math.random() * 1000000)
+
+  let allPlayers = useSelector(selectAllPlayers);
+  console.log('ALL PLAYERS', allPlayers.players)
+
+  function createPlayer(event) {
+    const playerId = allPlayers.players.length + 1
+      event.preventDefault();
+      console.log('PLAYER ADDED', player, playerId)
+      dispatch(addPlayer(
+        player,
+      ));
+      setPlayer('');
+  }
+
   return (
     <main>
       <header>
@@ -97,7 +119,17 @@ export default function Board() {
         </Link>
       </div>
 
-      <section className='dice'>
+      <section className='board'>
+      <article className='players'>
+        <h4>Current Players</h4>
+        {allPlayers.players.map(player => {
+          return (
+            <p>{player}</p>
+          )
+        })}
+      </article>
+
+      <article className='dice'>
       <img 
       src={require(`../images/${one.dice}.png`)} alt='Dice'
       onClick={() => {allowRoll1(!rollOne)}}
@@ -132,6 +164,24 @@ export default function Board() {
       className='roll'
       onClick={handleClick}>Roll
       </button>
+      </article>
+
+      <article className='add'>
+        <h4>Add A Player</h4>
+          <form onSubmit={createPlayer}>
+            <label>Player Name</label>
+            <br/>
+              <input 
+              type='text'
+              placeholder='Player Name'
+              value={player}
+              onChange={event => setPlayer(event.target.value)}
+              />
+            <button type='submit'>
+              Add
+            </button>
+          </form>
+      </article>
       </section>
     </main>
   )

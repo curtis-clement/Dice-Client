@@ -5,7 +5,7 @@ Branches
 -developement
   - Board
   - Rules
-  - Style
+  - Styling
 
 
 *Colour Scheme*

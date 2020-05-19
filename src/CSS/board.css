@@ -5,12 +5,36 @@ h2 {
   margin: 1%;
 }
 
+h4 {
+  font-size: 25px;
+  text-decoration: underline;
+}
+
+.board {
+  display: flex;
+}
+
+.players {
+  width: 30%;
+  margin-left: 4%;
+}
+
 .dice {
   width: 20%;
   margin: auto;
   background-color: white;
   border-radius: 10px;
   padding: 1%
+}
+
+.add {
+  width: 30%;
+  margin-right: 4%;
+}
+
+.add input {
+  border-radius: 5px;
+  font-size: 16px;
 }
 
 .die {

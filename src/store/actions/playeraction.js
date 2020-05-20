@@ -15,9 +15,7 @@ export const addPlayer = (name, id) => {
       id: id,
       score: 0
     }
-
     dispatch(addNewPlayer(player))
-    console.log('ADD PLAYER ACTION', name, id)
   }
 }
 

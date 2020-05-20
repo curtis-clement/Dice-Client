@@ -107,6 +107,11 @@ export default function Board() {
       setPlayer('');
   }
 
+  //const handleChange = (event) => {
+
+  // }
+
+
   function updateScore(event) {
     event.preventDefault();
     console.log('PLAYER ID AND SCORE', player, score)
@@ -205,36 +210,67 @@ export default function Board() {
               value={player}
               onChange={event => setPlayer(event.target.value)}
               />
-            <button type='submit'>
+            <button
+             type='submit'>
               Add
             </button>
           </form>
+      </article>
 
+
+
+        <article>
           <form onSubmit={updateScore}>
+          <select onChange={event => setPlayer(parseInt(event.target.value))}>
+              <option>Select Player</option>
               {allPlayers.players.map(player => {
                 return (
-                  <div key={player.id}>
-                  {player.name}
-                  <input 
-                  type='number'
-                  value={score}
-                  onChange={event => {setScore(event.target.value)}}
-                  />
-                  <button 
-                  type='submit'
-                  onClick={() => {
-                    setPlayer(player.id)
-                  }
-                  }
-                  >+</button>
-                  </div>
-              )})}
+                  <option
+                  key={player.id} 
+                  value={player.id}
+                  >{player.name}</option>
+                )
+              })}
+          </select>
+          <input 
+          onChange={event => setScore(parseInt(event.target.value))}
+          type='number'
+          value={score}
+          />
+          <button type='submit'>+</button>
           </form>
+  
+
+
       </article>
       </section>
     </main>
   )
 }
+
+// {allPlayers.players.map(player => {
+//   return (
+//     <section>
+//     <select key={player.id}>
+//     {player.name}
+//     <input 
+//     type='number'
+//     value={score}
+//     onChange={event => {setScore(event.target.value)}}
+//     />
+//     </select>
+
+//     <div>
+//     <button 
+//     type='submit'
+//     onClick={() => {
+//       setPlayer(player.id)
+//     }
+//     }
+//     >+</button>
+//     </div>
+//     </section>
+// )})}
 
 
 // onSubmit={event => {

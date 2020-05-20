@@ -7,7 +7,7 @@ export default function Rules() {
   return (
     <div>
       <header>
-        <h1>Rules</h1>
+        <h1>Dice 5000 - Rules</h1>
         <hr className='line'/> 
       </header>
 

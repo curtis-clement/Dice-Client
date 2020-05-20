@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {addPlayer} from '../store/actions/playeraction';
+import {addPlayer, addNewScore} from '../store/actions/playeraction';
 import {selectAllPlayers} from '../store/selectors/playerselector';
 
 import '../CSS/board.css';
@@ -24,6 +24,7 @@ export default function Board() {
   const [rollSix, setRollSix] = useState(initailRollState);
 
   const [player, setPlayer] = useState('');
+  const [score, setScore] = useState();
 
   const dispatch = useDispatch();
 
@@ -94,18 +95,31 @@ export default function Board() {
 
   // const playerId = Math.floor(Math.random() * 1000000)
 
-  let allPlayers = useSelector(selectAllPlayers);
-  console.log('ALL PLAYERS', allPlayers.players)
+  const allPlayers = useSelector(selectAllPlayers);
 
   function createPlayer(event) {
     const playerId = allPlayers.players.length + 1
       event.preventDefault();
-      console.log('PLAYER ADDED', player, playerId)
       dispatch(addPlayer(
         player,
         playerId
       ));
       setPlayer('');
+  }
+
+  //const handleChange = (event) => {
+
+  // }
+
+
+  function updateScore(event) {
+    event.preventDefault();
+    console.log('PLAYER ID AND SCORE', player, score)
+    dispatch(addNewScore(
+      player, score
+    ))
+    setScore([]);
+    setPlayer('');
   }
 
   return (
@@ -135,7 +149,7 @@ export default function Board() {
 
         {allPlayers.players.map(player => {
           return (
-            <div className='playerboard'>
+            <div key={player.id} className='playerboard'>
               <div className='playername'>
                 {player.name}
               </div>
@@ -196,12 +210,71 @@ export default function Board() {
               value={player}
               onChange={event => setPlayer(event.target.value)}
               />
-            <button type='submit'>
+            <button
+             type='submit'>
               Add
             </button>
           </form>
+      </article>
+
+
+
+        <article>
+          <form onSubmit={updateScore}>
+          <select onChange={event => setPlayer(parseInt(event.target.value))}>
+              <option>Select Player</option>
+              {allPlayers.players.map(player => {
+                return (
+                  <option
+                  key={player.id} 
+                  value={player.id}
+                  >{player.name}</option>
+                )
+              })}
+          </select>
+          <input 
+          onChange={event => setScore(parseInt(event.target.value))}
+          type='number'
+          value={score}
+          />
+          <button type='submit'>+</button>
+          </form>
+  
+
+
       </article>
       </section>
     </main>
   )
 }
+
+// {allPlayers.players.map(player => {
+//   return (
+//     <section>
+//     <select key={player.id}>
+//     {player.name}
+//     <input 
+//     type='number'
+//     value={score}
+//     onChange={event => {setScore(event.target.value)}}
+//     />
+//     </select>
+
+//     <div>
+//     <button 
+//     type='submit'
+//     onClick={() => {
+//       setPlayer(player.id)
+//     }
+//     }
+//     >+</button>
+//     </div>
+//     </section>
+// )})}
+
+
+// onSubmit={event => {
+//   event.preventDefault();
+//   setPlayer(player.id)
+//   setScore(event.target.value)
+// }}

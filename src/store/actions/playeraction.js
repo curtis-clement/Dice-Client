@@ -28,7 +28,6 @@ function updateScore(player){
 
 export const addNewScore = (id, score) => {
   return (dispatch, getState) => {
-    console.log('SCORE ACTION', id, score)
     const player = {
       id: id,
       score: score

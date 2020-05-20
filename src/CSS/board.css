@@ -83,3 +83,29 @@ h4 {
   border-radius: 5px;
   color: #6EFAFB
 }
+
+.updatescore {
+  margin: auto;
+  margin-top: 3%;
+  width: 33%;
+}
+
+.select {
+  font-size: 18px;
+}
+
+.addscore {
+  margin-left: 2%;
+  font-size: 18px;
+  border: 1px solid #6EFAFB;;
+  border-radius: 5px;
+  width: 15%;
+}
+
+button {
+  background-color: #6EFAFB;
+  color: #022B3A;
+  font-size: 18px;
+  border-radius: 5px;
+  margin-left: 1%;
+}

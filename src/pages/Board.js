@@ -4,11 +4,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import {addPlayer, addNewScore} from '../store/actions/playeraction';
 import {selectAllPlayers} from '../store/selectors/playerselector';
 
-import aDie from '../images/1.png';
-
 import '../CSS/board.css';
 
 export default function Board() {
+  const allPlayers = useSelector(selectAllPlayers);
+
   const initialState = {dice: 1};
   const [one, setOne] = useState(initialState);
   const [two, setTwo] = useState(initialState);
@@ -25,7 +25,8 @@ export default function Board() {
   const [rollFive, setRollFive] = useState(initailRollState);
   const [rollSix, setRollSix] = useState(initailRollState);
 
-  const [player, setPlayer] = useState('');
+  const [newPlayer, setNewPlayer] = useState('');
+  const [player, setPlayer] = useState();
   const [score, setScore] = useState();
 
   const dispatch = useDispatch();
@@ -95,24 +96,15 @@ export default function Board() {
     setRollSix(event);
   }
 
-  // const playerId = Math.floor(Math.random() * 1000000)
-
-  const allPlayers = useSelector(selectAllPlayers);
-
   function createPlayer(event) {
     const playerId = allPlayers.players.length + 1
       event.preventDefault();
       dispatch(addPlayer(
-        player,
+        newPlayer,
         playerId
       ));
-      setPlayer('');
+      setNewPlayer('');
   }
-
-  //const handleChange = (event) => {
-
-  // }
-
 
   function updateScore(event) {
     event.preventDefault();
@@ -121,7 +113,7 @@ export default function Board() {
       player, score
     ))
     setScore([]);
-    setPlayer('');
+    setNewPlayer('');
   }
 
   return (
@@ -209,8 +201,8 @@ export default function Board() {
               <input 
               type='text'
               placeholder='Player Name'
-              value={player}
-              onChange={event => setPlayer(event.target.value)}
+              value={newPlayer}
+              onChange={event => setNewPlayer(event.target.value)}
               />
             <button
              type='submit'>
@@ -218,12 +210,12 @@ export default function Board() {
             </button>
           </form>
       </article>
+      </section>
 
-
-
-        <article>
+      <section className='updatescore'>
+      <article>
           <form onSubmit={updateScore}>
-          <select onChange={event => setPlayer(parseInt(event.target.value))}>
+          <select className='select' onChange={event => setPlayer(parseInt(event.target.value))}>
               <option>Select Player</option>
               {allPlayers.players.map(player => {
                 return (
@@ -235,15 +227,13 @@ export default function Board() {
               })}
           </select>
           <input 
+          className='addscore'
           onChange={event => setScore(parseInt(event.target.value))}
           type='number'
           value={score}
           />
           <button type='submit'>+</button>
           </form>
-  
-
-
       </article>
       </section>
     </main>

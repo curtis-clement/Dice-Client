@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {addPlayer} from '../store/actions/playeraction';
+import {addPlayer, addNewScore} from '../store/actions/playeraction';
 import {selectAllPlayers} from '../store/selectors/playerselector';
 
 import '../CSS/board.css';
@@ -96,12 +96,10 @@ export default function Board() {
   // const playerId = Math.floor(Math.random() * 1000000)
 
   const allPlayers = useSelector(selectAllPlayers);
-  console.log('ALL PLAYERS', allPlayers.players)
 
   function createPlayer(event) {
     const playerId = allPlayers.players.length + 1
       event.preventDefault();
-      console.log('PLAYER ADDED', player, playerId)
       dispatch(addPlayer(
         player,
         playerId
@@ -112,7 +110,9 @@ export default function Board() {
   function updateScore(event) {
     event.preventDefault();
     console.log('PLAYER ID AND SCORE', player, score)
-    // dispatch()
+    dispatch(addNewScore(
+      player, score
+    ))
     setScore([]);
     setPlayer('');
   }
@@ -144,7 +144,7 @@ export default function Board() {
 
         {allPlayers.players.map(player => {
           return (
-            <div className='playerboard'>
+            <div key={player.id} className='playerboard'>
               <div className='playername'>
                 {player.name}
               </div>
@@ -213,7 +213,7 @@ export default function Board() {
           <form onSubmit={updateScore}>
               {allPlayers.players.map(player => {
                 return (
-                  <div>
+                  <div key={player.id}>
                   {player.name}
                   <input 
                   type='number'

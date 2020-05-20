@@ -196,9 +196,9 @@ export default function Board() {
       <article className='add'>
         <h4>Add A Player</h4>
           <form onSubmit={createPlayer}>
-            <label>Player Name</label>
             <br/>
               <input 
+              className='addplayer'
               type='text'
               placeholder='Player Name'
               value={newPlayer}

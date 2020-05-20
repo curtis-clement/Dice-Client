@@ -102,6 +102,13 @@ h4 {
   width: 15%;
 }
 
+.addplayer {
+  font-size: 18px;
+  border: 1px solid #6EFAFB;;
+  border-radius: 5px;
+  width: 35%;
+}
+
 button {
   background-color: #6EFAFB;
   color: #022B3A;

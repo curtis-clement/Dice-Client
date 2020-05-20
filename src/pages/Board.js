@@ -4,6 +4,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {addPlayer, addNewScore} from '../store/actions/playeraction';
 import {selectAllPlayers} from '../store/selectors/playerselector';
 
+import aDie from '../images/1.png';
+
 import '../CSS/board.css';
 
 export default function Board() {
@@ -247,34 +249,3 @@ export default function Board() {
     </main>
   )
 }
-
-// {allPlayers.players.map(player => {
-//   return (
-//     <section>
-//     <select key={player.id}>
-//     {player.name}
-//     <input 
-//     type='number'
-//     value={score}
-//     onChange={event => {setScore(event.target.value)}}
-//     />
-//     </select>
-
-//     <div>
-//     <button 
-//     type='submit'
-//     onClick={() => {
-//       setPlayer(player.id)
-//     }
-//     }
-//     >+</button>
-//     </div>
-//     </section>
-// )})}
-
-
-// onSubmit={event => {
-//   event.preventDefault();
-//   setPlayer(player.id)
-//   setScore(event.target.value)
-// }}

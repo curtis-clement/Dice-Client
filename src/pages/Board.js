@@ -1,120 +1,65 @@
-import React, {useState} from 'react'
-import {Link} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import {addPlayer, addNewScore} from '../store/actions/playeraction';
-import {selectAllPlayers} from '../store/selectors/playerselector';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addPlayer, addNewScore } from "../store/actions/playeraction";
+import { selectAllPlayers } from "../store/selectors/playerselector";
 
-import '../CSS/board.css';
+import "../CSS/board.css";
 
 export default function Board() {
   const allPlayers = useSelector(selectAllPlayers);
+  const dispatch = useDispatch();
+  const dieInitialState = id => ({
+    id,
+    roll: true,
+    value: 1,
+  });
+  const initialState = [...Array(6).keys()].map(id => dieInitialState(id));
+  const [all, setAll] = useState(initialState);
 
-  const initialState = {dice: 1};
-  const [one, setOne] = useState(initialState);
-  const [two, setTwo] = useState(initialState);
-  const [three, setThree] = useState(initialState);
-  const [four, setFour] = useState(initialState);
-  const [five, setFive] = useState(initialState);
-  const [six, setSix] = useState(initialState);
-
-  const initailRollState = true
-  const [rollOne, setRollOne] = useState(initailRollState);
-  const [rollTwo, setRollTwo] = useState(initailRollState);
-  const [rollThree, setRollThree] = useState(initailRollState);
-  const [rollFour, setRollFour] = useState(initailRollState);
-  const [rollFive, setRollFive] = useState(initailRollState);
-  const [rollSix, setRollSix] = useState(initailRollState);
-
-  const [newPlayer, setNewPlayer] = useState('');
+  const [newPlayer, setNewPlayer] = useState("");
   const [player, setPlayer] = useState();
   const [score, setScore] = useState();
 
-  const dispatch = useDispatch();
-
-  const rollDice1 = () => {
-    const diceValue = Math.ceil(Math.random() * 6);
-    setOne({dice: diceValue})
-  };
-  const rollDice2 = () => {
-    const diceValue = Math.ceil(Math.random() * 6);
-    setTwo({dice: diceValue})
-  };
-  const rollDice3 = () => {
-    const diceValue = Math.ceil(Math.random() * 6);
-    setThree({dice: diceValue})
-  };
-  const rollDice4 = () => {
-    const diceValue = Math.ceil(Math.random() * 6);
-    setFour({dice: diceValue})
-  };
-  const rollDice5 = () => {
-    const diceValue = Math.ceil(Math.random() * 6);
-    setFive({dice: diceValue})
-  };
-  const rollDice6 = () => {
-    const diceValue = Math.ceil(Math.random() * 6);
-    setSix({dice: diceValue})
+  const rollDice = () => {
+    const newRoll = all.map(die =>
+      die.roll ? { ...die, value: Math.ceil(Math.random() * 6) } : die
+    );
+    setAll(newRoll);
   };
 
-  function handleClick() {
-      if (rollOne === true) {
-        rollDice1();
-      }
-      if (rollTwo === true) {
-        rollDice2();
-      }
-      if (rollThree === true) {
-        rollDice3();
-      }
-      if (rollFour === true) {
-        rollDice4();
-      }
-      if (rollFive === true) {
-        rollDice5();
-      }
-      if (rollSix === true) {
-        rollDice6();
-      }
+  const disableRoll = id => {
+    const newRoll = all.map(die =>
+      die.id === id ? { ...die, roll: !die.roll } : die
+    );
+    setAll(newRoll);
   };
-
-  const allowRoll1 = (event) => {
-    setRollOne(event);
-  }
-  const allowRoll2 = (event) => {
-    setRollTwo(event);
-  }
-  const allowRoll3 = (event) => {
-    setRollThree(event);
-  }
-  const allowRoll4 = (event) => {
-    setRollFour(event);
-  }
-  const allowRoll5 = (event) => {
-    setRollFive(event);
-  }
-  const allowRoll6 = (event) => {
-    setRollSix(event);
-  }
 
   function createPlayer(event) {
-    const playerId = allPlayers.players.length + 1
-      event.preventDefault();
-      dispatch(addPlayer(
-        newPlayer,
-        playerId
-      ));
-      setNewPlayer('');
+    const playerId = allPlayers.players.length + 1;
+    event.preventDefault();
+    dispatch(addPlayer(newPlayer, playerId));
+    setNewPlayer("");
   }
 
   function updateScore(event) {
     event.preventDefault();
-    console.log('PLAYER ID AND SCORE', player, score)
-    dispatch(addNewScore(
-      player, score
-    ))
+    console.log("PLAYER ID AND SCORE", player, score);
+    dispatch(addNewScore(player, score));
     setScore([]);
-    setNewPlayer('');
+    setNewPlayer("");
   }
+
+  const generateDice = () =>
+    all.map(die => (
+      <img
+        src={require(`../images/${die.value}.png`)}
+        key={die.id}
+        alt='Dice'
+        onClick={() => disableRoll(die.id)}
+        className={!die.roll ? "dieclick" : "die"}
+      />
+    ));
 
   return (
     <main>
@@ -123,119 +68,84 @@ export default function Board() {
       </header>
 
       <div>
-        <Link to={'/'}>
+        <Link to={"/"}>
           <h3>Back to the Rules</h3>
         </Link>
       </div>
 
       <section className='board'>
-      <article className='players'>
-        <h4>Current Players</h4>
+        <article className='players'>
+          <h4>Current Players</h4>
 
           <div className='headers'>
-          <div className='subtitle'>
-            <h5>Player</h5>
-          </div>
-          <div className='subtitle'>
-            <h5>Score</h5>
-          </div>
-          </div>
-
-        {allPlayers.players.map(player => {
-          return (
-            <div key={player.id} className='playerboard'>
-              <div className='playername'>
-                {player.name}
-              </div>
-
-              <div className='playername'>
-                {player.score}
-              </div>
+            <div className='subtitle'>
+              <h5>Player</h5>
             </div>
-          )
-        })}
-      </article>
+            <div className='subtitle'>
+              <h5>Score</h5>
+            </div>
+          </div>
 
-      <article className='dice'>
-      <img 
-      src={require(`../images/${one.dice}.png`)} alt='Dice'
-      onClick={() => {allowRoll1(!rollOne)}}
-      className={!rollOne ? 'dieclick' : 'die'}
-      />
-      <img 
-      src={require(`../images/${two.dice}.png`)} alt='Dice'
-      onClick={() => {allowRoll2(!rollTwo)}}
-      className={!rollTwo ? 'dieclick' : 'die'}
-      />
-      <img 
-      src={require(`../images/${three.dice}.png`)} alt='Dice'
-      onClick={() => {allowRoll3(!rollThree)}}
-      className={!rollThree ? 'dieclick' : 'die'}
-      />
-      <img 
-      src={require(`../images/${four.dice}.png`)} alt='Dice'
-      onClick={() => {allowRoll4(!rollFour)}}
-      className={!rollFour ? 'dieclick' : 'die'}
-      />
-      <img 
-      src={require(`../images/${five.dice}.png`)} alt='Dice'
-      onClick={() => {allowRoll5(!rollFive)}}
-      className={!rollFive ? 'dieclick' : 'die'}
-      />
-      <img 
-      src={require(`../images/${six.dice}.png`)} alt='Dice'
-      onClick={() => {allowRoll6(!rollSix)}}
-      className={!rollSix ? 'dieclick' : 'die'}
-      />
-      <button
-      className='roll'
-      onClick={handleClick}>Roll
-      </button>
-      </article>
+          {allPlayers.players.map(player => {
+            return (
+              <div key={player.id} className='playerboard'>
+                <div className='playername'>{player.name}</div>
 
-      <article className='add'>
-        <h4>Add A Player</h4>
+                <div className='playername'>{player.score}</div>
+              </div>
+            );
+          })}
+        </article>
+
+        <article className='dice'>
+          {generateDice()}
+          <button className='roll' onClick={rollDice}>
+            Roll
+          </button>
+        </article>
+
+        <article className='add'>
+          <h4>Add A Player</h4>
           <form onSubmit={createPlayer}>
-            <br/>
-              <input 
+            <br />
+            <input
               className='addplayer'
               type='text'
               placeholder='Player Name'
               value={newPlayer}
               onChange={event => setNewPlayer(event.target.value)}
-              />
-            <button
-             type='submit'>
-              Add
-            </button>
+            />
+            <button type='submit'>Add</button>
           </form>
-      </article>
+        </article>
       </section>
 
       <section className='updatescore'>
-      <article>
+        <article>
           <form onSubmit={updateScore}>
-          <select className='select' onChange={event => setPlayer(parseInt(event.target.value))}>
+            <select
+              className='select'
+              onChange={event => setPlayer(parseInt(event.target.value))}
+            >
               <option>Select Player</option>
               {allPlayers.players.map(player => {
                 return (
-                  <option
-                  key={player.id} 
-                  value={player.id}
-                  >{player.name}</option>
-                )
+                  <option key={player.id} value={player.id}>
+                    {player.name}
+                  </option>
+                );
               })}
-          </select>
-          <input 
-          className='addscore'
-          onChange={event => setScore(parseInt(event.target.value))}
-          type='number'
-          value={score}
-          />
-          <button type='submit'>+</button>
+            </select>
+            <input
+              className='addscore'
+              onChange={event => setScore(parseInt(event.target.value))}
+              type='number'
+              value={score}
+            />
+            <button type='submit'>+</button>
           </form>
-      </article>
+        </article>
       </section>
     </main>
-  )
+  );
 }

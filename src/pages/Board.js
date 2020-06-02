@@ -8,92 +8,32 @@ import '../CSS/board.css';
 
 export default function Board() {
   const allPlayers = useSelector(selectAllPlayers);
-
-  const initialState = {dice: 1};
-  const [one, setOne] = useState(initialState);
-  const [two, setTwo] = useState(initialState);
-  const [three, setThree] = useState(initialState);
-  const [four, setFour] = useState(initialState);
-  const [five, setFive] = useState(initialState);
-  const [six, setSix] = useState(initialState);
-
-  const initailRollState = true
-  const [rollOne, setRollOne] = useState(initailRollState);
-  const [rollTwo, setRollTwo] = useState(initailRollState);
-  const [rollThree, setRollThree] = useState(initailRollState);
-  const [rollFour, setRollFour] = useState(initailRollState);
-  const [rollFive, setRollFive] = useState(initailRollState);
-  const [rollSix, setRollSix] = useState(initailRollState);
+  const dispatch = useDispatch();
+  
+  const dieInitialState = id => ({
+    id,
+    roll: true,
+    value: 1
+  })
+  const initialState = [...Array(6).keys()].map(id => dieInitialState(id));
+  const [all, setAll] = useState(initialState)
 
   const [newPlayer, setNewPlayer] = useState('');
   const [player, setPlayer] = useState();
   const [score, setScore] = useState();
 
-  const dispatch = useDispatch();
+  const rollDice = () => {
+    const newRoll = all.map(die =>
+      die.roll ? {...die, value: Math.ceil(Math.random() * 6)} : die
+      )
+    setAll(newRoll);
+  }
 
-  const rollDice1 = () => {
-    const diceValue = Math.ceil(Math.random() * 6);
-    setOne({dice: diceValue})
-  };
-  const rollDice2 = () => {
-    const diceValue = Math.ceil(Math.random() * 6);
-    setTwo({dice: diceValue})
-  };
-  const rollDice3 = () => {
-    const diceValue = Math.ceil(Math.random() * 6);
-    setThree({dice: diceValue})
-  };
-  const rollDice4 = () => {
-    const diceValue = Math.ceil(Math.random() * 6);
-    setFour({dice: diceValue})
-  };
-  const rollDice5 = () => {
-    const diceValue = Math.ceil(Math.random() * 6);
-    setFive({dice: diceValue})
-  };
-  const rollDice6 = () => {
-    const diceValue = Math.ceil(Math.random() * 6);
-    setSix({dice: diceValue})
-  };
-
-  function handleClick() {
-      if (rollOne === true) {
-        rollDice1();
-      }
-      if (rollTwo === true) {
-        rollDice2();
-      }
-      if (rollThree === true) {
-        rollDice3();
-      }
-      if (rollFour === true) {
-        rollDice4();
-      }
-      if (rollFive === true) {
-        rollDice5();
-      }
-      if (rollSix === true) {
-        rollDice6();
-      }
-  };
-
-  const allowRoll1 = (event) => {
-    setRollOne(event);
-  }
-  const allowRoll2 = (event) => {
-    setRollTwo(event);
-  }
-  const allowRoll3 = (event) => {
-    setRollThree(event);
-  }
-  const allowRoll4 = (event) => {
-    setRollFour(event);
-  }
-  const allowRoll5 = (event) => {
-    setRollFive(event);
-  }
-  const allowRoll6 = (event) => {
-    setRollSix(event);
+  const disableRoll = id => {
+    const newRoll = all.map(die => 
+      die.id === id ? {...die, roll: !die.roll} : die
+      );
+    setAll(newRoll);
   }
 
   function createPlayer(event) {
@@ -108,13 +48,23 @@ export default function Board() {
 
   function updateScore(event) {
     event.preventDefault();
-    console.log('PLAYER ID AND SCORE', player, score)
     dispatch(addNewScore(
       player, score
     ))
     setScore([]);
     setNewPlayer('');
-  }
+  };
+
+  const generateDice = () =>
+    all.map(die => (
+      <img 
+        src={require(`../images/${die.value}.png`)}
+        key={die.id}
+        alt='Dice'
+        onClick={() => disableRoll(die.id)}
+        className={!die.roll ? 'dieclick' : 'die'}
+      />
+    ))
 
   return (
     <main>
@@ -148,49 +98,17 @@ export default function Board() {
                 {player.name}
               </div>
 
-              <div className='playername'>
-                {player.score}
-              </div>
+              <div className='playername'>{player.score}</div>
             </div>
           )
         })}
       </article>
 
       <article className='dice'>
-      <img 
-      src={require(`../images/${one.dice}.png`)} alt='Dice'
-      onClick={() => {allowRoll1(!rollOne)}}
-      className={!rollOne ? 'dieclick' : 'die'}
-      />
-      <img 
-      src={require(`../images/${two.dice}.png`)} alt='Dice'
-      onClick={() => {allowRoll2(!rollTwo)}}
-      className={!rollTwo ? 'dieclick' : 'die'}
-      />
-      <img 
-      src={require(`../images/${three.dice}.png`)} alt='Dice'
-      onClick={() => {allowRoll3(!rollThree)}}
-      className={!rollThree ? 'dieclick' : 'die'}
-      />
-      <img 
-      src={require(`../images/${four.dice}.png`)} alt='Dice'
-      onClick={() => {allowRoll4(!rollFour)}}
-      className={!rollFour ? 'dieclick' : 'die'}
-      />
-      <img 
-      src={require(`../images/${five.dice}.png`)} alt='Dice'
-      onClick={() => {allowRoll5(!rollFive)}}
-      className={!rollFive ? 'dieclick' : 'die'}
-      />
-      <img 
-      src={require(`../images/${six.dice}.png`)} alt='Dice'
-      onClick={() => {allowRoll6(!rollSix)}}
-      className={!rollSix ? 'dieclick' : 'die'}
-      />
-      <button
-      className='roll'
-      onClick={handleClick}>Roll
-      </button>
+        {generateDice()}
+        <button className='roll' onClick={rollDice}>
+          Roll
+        </button>
       </article>
 
       <article className='add'>

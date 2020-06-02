@@ -4,6 +4,8 @@ This dice app was designed for use by my family members and as a fun side projec
 
 An automatic scoring component was intentially left out of this game due to the fact that a player may often choose to accept a lower score in order to re-roll more dice but this is up to the players and their own play style.
 
+![](DiceApp.gif)
+
 ### `Tech`
 
 This app uses React to display the data, Redux to manage the state and keep track of players and scoring, and CSS to style the app. Redux was implemented as this template app maybe have more games added to it later and Redux therefore is already in place to handle the larger loads of state that would be required for multiple games or a variety of games such as cards in addition to dice.
